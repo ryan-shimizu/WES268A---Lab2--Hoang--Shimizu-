@@ -1,0 +1,143 @@
+% !TeX program = pdflatex
+% !BIB program = biber
+
+\documentclass[11pt,a4paper]{article}
+
+% PREAMBLE
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx,booktabs,amsmath,amssymb,mathtools,float}
+\usepackage{siunitx}\sisetup{detect-all}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{newtxtext,newtxmath} % Times New Roman
+
+% TOC Depth
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+% Section Numbering
+\renewcommand\thesection{\arabic{section}}
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+\renewcommand\thesubsubsection{\thesubsection.\Alph{subsubsection}}
+
+\makeatletter
+\renewcommand\theparagraph{\thesubsubsection.\roman{paragraph}}
+\makeatother
+
+\titleformat{\paragraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}{0pt}{0.75ex}{0.5ex}
+
+% TOC Indentation (skip paragraph due to MiKTeX compatibility)
+\setlength{\cftsubsecindent}{1.5em}
+\setlength{\cftsubsubsecindent}{3em}
+
+% BEGIN DOCUMENT 
+\begin{document}
+
+% Title Page
+\begin{titlepage}
+    \centering
+    {\Huge\bfseries UCSD MAS WES268A - Lab 2 Report DRAFT\par}
+    \vspace{2cm}
+    {\large\bfseries 08NOV2025\par}
+    \vspace{2cm}
+    \includegraphics[width=0.35\textwidth]{UCSD.png}\par\vspace{1.5cm}
+    %\vfill
+    \vspace{3cm}
+    {\scshape Prepared By: \par}
+    {\Large\itshape Joshua Hoang \\ Ryan Shimizu\par}
+
+    % Good Boy Brady
+    \vspace*{\fill}
+    \hfill
+    \includegraphics[width=0.2\textwidth]{EasterEgg.png}
+\end{titlepage}
+
+% Reset page number after title
+\clearpage
+\setcounter{page}{2}
+
+% Table of Contents 
+\tableofcontents
+\newpage
+
+% SECTION: Part 1
+\section[Generation of Passband Noise Waveforms]{Part 1: \textbf{USRP} Write-Up}
+
+\subsection{Narrative Questions}
+
+\hspace*{1.5em}\textbf{[INSERT]} 
+
+\textbf{[INSERT]} 
+
+%\subsection{[INSERT FIGURES]}
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=0.7\textwidth]{FILENAME.png}
+%    \caption{[INSERT]}
+%    \label{fig:INSERT}
+%\end{figure}
+
+% SECTION: Part 2
+\section[Up Sampling and Pulse Shaping]{Part 2: \textbf{USRP} Write-Up}
+
+\subsection{Narrative Questions}
+
+\hspace*{1.5em}\textbf{[INSERT]} 
+
+\textbf{[INSERT]} 
+
+%\subsection{[INSERT FIGURES]}
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=0.7\textwidth]{FILENAME.png}
+%    \caption{[INSERT]}
+%    \label{fig:INSERT}
+%\end{figure}
+
+% SECTION: Part 3
+\section[Generation of Psuedo Random Binary Sequences (PRBS)]{Part 3: \textbf{USRP} Write-Up}
+
+\subsection{Narrative Questions}
+
+\hspace*{1.5em}\textbf{[INSERT]} 
+
+\textbf{[INSERT]} 
+
+%\subsection{[INSERT FIGURES]}
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=0.7\textwidth]{FILENAME.png}
+%    \caption{[INSERT]}
+%    \label{fig:INSERT}
+%\end{figure}
+
+% SECTION: Part 4
+\section[Eye Patterns (Simulation VI)]{Part 4: \textbf{USRP} Write-Up}
+
+\subsection{Narrative Questions}
+
+\hspace*{1.5em}\textbf{[INSERT]} 
+
+\textbf{[INSERT]} 
+
+%\subsection{[INSERT FIGURES]}
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=0.7\textwidth]{FILENAME.png}
+%    \caption{[INSERT]}
+%    \label{fig:INSERT}
+%\end{figure}
+
+% Easter Egg
+%\newpage
+%\thispagestyle{empty}
+%\vspace*{\fill}
+%\begin{center}
+%    \includegraphics[width=0.4\textwidth]{EasterEgg2.png}\\[1em]
+%    \textbf{feelsgoodman}
+%\end{center}
+%\vspace*{\fill}
+
+\end{document}
