@@ -76,7 +76,36 @@ This is because the noise is generated using a Gaussian
 distribution with a mean of zero.}
 
 \textbf{1.1.3 - }
-{} 
+{From Figure 2, we can see that the \textit{IQ} spectrums show a flat 
+frequency response indicating that the noise power is uniformly distributed 
+across the frequency range hovering around the -40dB range. This is 
+characteristic of additive white Gaussian noise, which has equal power 
+across all frequencies. Using an RBW of 50 Hz and one-sided bandwidth of 250kHz, 
+we can calculate the total noise power as follows:
+\begin{equation*}
+    P_{noise} = (10^{-4}) \times B/RBW = (10^{-4}) \times (250,000/50) = 0.5
+\end{equation*}
+We can verify that this is correct because it is consistent with our value of $\sigma$:
+\begin{equation*}
+    \sigma_{noise} = \sqrt{P_{noise}} = \sqrt{0.5} = 0.7071
+\end{equation*}
+which matches our set value of $\sigma$ in the simulation VI seen in Figure 1 and Figure 2.
+}
+
+\textbf{1.1.4 - }
+{Just like in step 3, we can calculate the total noise power using the same
+ method but only for the in-phase component. Using an RBW of 50 Hz, 
+ one-sided bandwidth of 250kHz, and a power level of -40dB uniformly distributed
+ across the frequency range, we can calculate the total noise power as follows:
+\begin{equation*}
+    P_{I} = (10^{-4}) \times B/RBW = (10^{-4}) \times (250,000/50) = 0.5
+\end{equation*}
+Again, we can verify that this is correct because it is consistent with our value of $\sigma$:
+\begin{equation*}
+    \sigma_{I} = \sqrt{P_{I}} = \sqrt{0.5} = 0.7071
+\end{equation*}
+which matches. LabVIEW only displays the one-sided spectrum for real signals because the 
+negative frequency components mirror the positive frequency components. Therefore, it is redundant to display.}
 
 \subsection{Figures}
 \begin{figure}[H]
@@ -85,6 +114,14 @@ distribution with a mean of zero.}
    \caption{1.1.2 - Histogram of \textit{I} and \textit{Q} components of passband noise}
    \label{fig:1}
 \end{figure}
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{lab_ss/p1_3.png}
+   \caption{1.1.3 - Spectrum of \textit{I} and \textit{Q} components of passband noise}
+   \label{fig:2}
+\end{figure}
+
+\newpage
 
 % SECTION: Part 2
 \section[Up Sampling and Pulse Shaping]
@@ -92,7 +129,8 @@ distribution with a mean of zero.}
 
 \subsection{Narrative Questions}
 
-\hspace*{1.5em}\textbf{[INSERT]} 
+\hspace*{1.5em}\textbf{2.1.5 - }
+{}
 
 \textbf{[INSERT]} 
 
