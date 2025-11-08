@@ -1,9 +1,14 @@
 {
     "name": "TeX Live LaTeX Dev Container",
-    "build": {
-        "dockerfile": "Dockerfile",
-        "context": ".."
-    },
+    
+    /// Uncomment to rebuild the image from scratch
+    // "build": {
+    //     "dockerfile": "Dockerfile",
+    //     "context": ".."
+    // },
+
+    // Otherwise pull pre-built image from Docker Hub
+    "image": "elceboyo/ceboyo-tex-enviro:latest",
     "workspaceFolder": "/workspace",
     "remoteUser": "root",
     "mounts": [

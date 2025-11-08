@@ -78,16 +78,16 @@ distribution with a mean of zero.}
 \textbf{1.1.3 - }
 {From Figure 2, we can see that the \textit{IQ} spectrums show a flat 
 frequency response indicating that the noise power is uniformly distributed 
-across the frequency range hovering around the -40dB range. This is 
+across the frequency range hovering around the -40dB range. This is a 
 characteristic of additive white Gaussian noise, which has equal power 
 across all frequencies. Using an RBW of 50 Hz and one-sided bandwidth of 250kHz, 
 we can calculate the total noise power as follows:
 \begin{equation*}
-    P_{noise} = (10^{-4}) \times B/RBW = (10^{-4}) \times (250,000/50) = 0.5
+    P_{\text{noise}} = (10^{-4}) \times B/RBW = (10^{-4}) \times (250,000/50) = 0.5
 \end{equation*}
 We can verify that this is correct because it is consistent with our value of $\sigma$:
 \begin{equation*}
-    \sigma_{noise} = \sqrt{P_{noise}} = \sqrt{0.5} = 0.7071
+    \sigma_{\text{noise}} = \sqrt{P_{\text{noise}}} = \sqrt{0.5} = 0.7071
 \end{equation*}
 which matches our set value of $\sigma$ in the simulation VI seen in Figure 1 and Figure 2.
 }
@@ -134,8 +134,6 @@ negative frequency components mirror the positive frequency components. Therefor
  results in a wider transition band in the filter's frequency response. Conversely, 
  a lower $\beta$ value results in a narrower bandwidth.}
 
-\textbf{[INSERT]} 
-
 \subsection{Figures}
 \begin{figure}[H]
    \centering
@@ -169,17 +167,168 @@ negative frequency components mirror the positive frequency components. Therefor
 
 \subsection{Narrative Questions}
 
-\hspace*{1.5em}\textbf{[INSERT]} 
+\hspace*{1.5em}\textbf{3.0.5 - }
+{We analyze the power spectrum for this type of signal using a Fourier series expansion 
+to represent the PRBS signal because it is periodic. Since the sequence is pseudo-random,
+it has a period that repeats depending on the length of the shift registers used to generate it. For our case,
+with $M = 5$ and $N = 8$, the period is $N \times (2^{M}-1) = 248$ samples.
+This makes a Fourier series expansion appropriate for analyzing the frequency components of the signal.}
 
-\textbf{[INSERT]} 
+\textbf{3.0.6 - }
+{
+   The frequency spacing between the spectral lines $\Delta f$ is approximately 60kHz as seen in Figure 8. The
+   $\Delta f_{\text{null}}$ repeats at 2kHz intervals as seen in Figure 10.
+   We can verify that these are consistent with our calculations in Additional Questions 1:
+   \begin{equation*}
+   \Delta f = \frac{f_s}{N \times (2^{M}-1)} \qquad
+   \Delta f_{\text{null}} = \frac{f_s}{N}
+   \end{equation*}
+   where $f_s = 500\text{kHz}$, $N = 8$ and $M = 5$.
+   \begin{equation*}
+   \Delta f = \frac{500\text{kHz}}{8 \times (2^{5}-1)} \approx 2.016\text{kHz} \qquad
+   \Delta f_{\text{null}} = \frac{500\text{kHz}}{8} = 62.5\text{kHz}
+   \end{equation*}
+}
 
-%\subsection{[INSERT FIGURES]}
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=0.7\textwidth]{FILENAME.png}
-%    \caption{[INSERT]}
-%    \label{fig:INSERT}
-%\end{figure}
+% SECTION: Part 3 Figures
+\subsection{Figures}
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{lab_ss/p3_3.png}
+   \caption{3.0.3 - Generated Spectrum using USRP Spectrum Analyzer}\label{fig:8}
+\end{figure}
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{lab_ss/p3_4a.png}
+   \caption{3.0.4a - DC Component of PRBS Spectrum}\label{fig:9}
+\end{figure}
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{lab_ss/p3_6.png}
+   \caption{3.0.6 - Frequency Spacing between spectral lines $\Delta f_{\text{null}}$ }\label{fig:10}
+\end{figure}
+
+\subsection{Autocorrelation Properties of PRBS Sequences (Simulation Only)}
+\subsubsection{Narrative Questions}
+\hspace*{1.5em}\textbf{3.1.2 -} 
+{The results of the MLS, Ones, and Random sequences shown in Figures 11 through 13 
+ match the expected behavior of the three sequences. When the noise standard deviation is set to 0,
+ the MLS sequence achieves a detection rate very close to one because its autocorrelation always 
+ gives a single sharp peak at $t = 0$. The Ones sequence has a flat correlation surface so the 
+ algorithm rarely singles out $t = 0$, and its detection rate stays near zero. As for the Random 
+ sequence, each newly generated pattern is essentially uncorrelated with the stored template, 
+ so the peak almost never lands at $t = 0$ and the detection rate likewise remains close to zero.}
+
+\textbf{3.1.4 -} 
+{ Across all three noise levels the MLS sequence delivers the best performance as it consistently 
+  shows the highest Packet Detection Rate in Figures 11, 14, 17, 20 and 23 compared to the Ones and Random 
+  sequences in Figures 12, 13, 15, 16, 18, 19, 21 and 22.}
+
+\textbf{3.1.5 -} 
+{ Under additive white Gaussian noise the MLS sequence still performs the best. Figure 
+  20 shows that the MLS maintains a clear correlation spike, while the Ones and Random sequences 
+  in Figures 21 and 22 lose their peaks first.}
+
+% SECTION: Part 3 Simulation Section Figures
+\subsubsection{Figures}
+% 3.1.2 Figures
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{lab_ss/p31_2_mls.png}
+   \caption{3.1.2 - Correlation function for MLS}\label{fig:11}
+\end{figure}
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{lab_ss/p31_2_ones.png}
+   \caption{3.1.2 - Correlation function for Ones}\label{fig:12}
+\end{figure}
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{lab_ss/p31_2_random.png}
+   \caption{3.1.2 - Correlation function for Random}\label{fig:13}
+\end{figure}
+
+% 3.1.4a Figures
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{lab_ss/p31_4_a_mls.png}
+   \caption{3.1.4a - Correlation function for MLS with $\beta = 0.5$}\label{fig:14}
+\end{figure}
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{lab_ss/p31_4_a_ones.png}
+   \caption{3.1.4a - Correlation function for Ones with $\beta = 0.5$}\label{fig:15}
+\end{figure}
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{lab_ss/p31_4_a_random.png}
+   \caption{3.1.4a - Correlation function for Random with $\beta = 0.5$}\label{fig:16}
+\end{figure}
+
+% 3.1.4b Figures
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{lab_ss/p31_4_b_mls.png}
+   \caption{3.1.4b - Correlation function for MLS with $\beta = 1.0$}\label{fig:17}
+\end{figure}
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{lab_ss/p31_4_b_ones.png}
+   \caption{3.1.4b - Correlation function for Ones with $\beta = 1.0$}\label{fig:18}
+\end{figure}
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{lab_ss/p31_4_b_random.png}
+   \caption{3.1.4b - Correlation function for Random with $\beta = 1.0$}\label{fig:19}
+\end{figure}
+
+% 3.1.4c Figures
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{lab_ss/p31_4_c_mls.png}
+   \caption{3.1.4c - Correlation function for MLS with $\beta = 2.0$}\label{fig:20}
+\end{figure}
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{lab_ss/p31_4_c_ones.png}
+   \caption{3.1.4c - Correlation function for Ones with $\beta = 2.0$}\label{fig:21}
+\end{figure}
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{lab_ss/p31_4_c_random.png}
+   \caption{3.1.4c - Correlation function for Random with $\beta = 2.0$}\label{fig:22}
+\end{figure}
+
+% 3.1.5 Figures
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{lab_ss/p31_5_mls_best.png}
+   \caption{3.1.5 - Correlation of Best Performing Sequence with $\beta = 2.0$ (MLS)}\label{fig:23}
+\end{figure}
+
+% SECTION: Part 3 Additional Questions
+\subsection{Additional Questions}
+\hspace*{1.5em}\textbf{1 - }
+\begin{equation*}
+T_{\text{sym}} = \frac{N}{f_s}, \qquad T_{\text{period}} = \frac{N \times(2^{M}-1)}{f_s}
+\end{equation*}
+\begin{equation*}
+\Delta f = \frac{1}{T_{\text{period}}} = \frac{f_s}{N,(2^{M}-1)}, \qquad
+\Delta f_{\text{null}} = \frac{1}{T_{\text{sym}}} = \frac{f_s}{N}
+\end{equation*}
+
+\textbf{2 - }
+{
+   PRBS sequences are used for frame synchronization because it uses a known, repeatable bit pattern 
+   whose autocorrelation has one strong, well-defined peak at zero lag. In practical terms this 
+   gives a clear correlation spike even at relatively low SNR, so the receiver can find the 
+   start of the frame quickly and reliably while still using a preamble with a fairly flat spectrum 
+   that stays within emission limits. When a receiver correlates the incoming signal with a locally 
+   generated PRBS sequence, the correlation output will produce a distinct peak when the sequences 
+   align indicating that a message is currently being sent. These sequences also have very little 
+   cross correlation with other sequences, making them useful for distinguishing between different 
+   users on the same channel.
+}
 
 % SECTION: Part 4
 \section[Eye Patterns (Simulation VI)]
@@ -187,26 +336,211 @@ negative frequency components mirror the positive frequency components. Therefor
 
 \subsection{Narrative Questions}
 
-\hspace*{1.5em}\textbf{[INSERT]} 
+\hspace*{1.5em}\textbf{4.0.4 -} 
+{
+   Figure 19 shows that the largest value of Zeta occurs when the receiver samples at the centre of 
+   the eight-sample symbol, which is the fourth sample position. At that instant Zeta is 9.80653 for 
+   a raised-cosine pulse with Beta equal to 1.
+ }
 
-\textbf{[INSERT]} 
+\textbf{4.0.5a -} 
+{
+   For Beta equal to zero, Zeta plunges from about ten to roughly two within one sample on either side
+   of the optimum in Figures 20 through 22. With Beta equal to one-half the fall-off is even sharper, 
+   dropping to almost zero in Figures 23 through 25. By contrast, the broader pulse in Figure 19 
+   with Beta equal to one loses only a fraction of a decibel over the same shift, showing that wider 
+   roll-off is far less sensitive to sampling error.
+}
 
-%\subsection{[INSERT FIGURES]}
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=0.7\textwidth]{FILENAME.png}
-%    \caption{[INSERT]}
-%    \label{fig:INSERT}
-%\end{figure}
+\textbf{4.0.5b -} 
+{
+   Beta equal to one-half is the most sensitive to sampling time because Zeta collapses from about 
+   10.35 to essentially zero with a single-sample shift.
+}
+
+\textbf{4.0.5c -} 
+{ 
+   Beta equal to one is the least sensitive. The wider roll-off spreads the pulse energy so 
+   inter-symbol interference grows more slowly when the sampling instant moves away from the optimum, 
+   leaving Zeta almost unchanged across neighbouring samples, as suggested by the gentle eye opening 
+   in Figure 19.
+}
+
+\textbf{4.0.6a -} 
+{
+   With no transmit filter the rectangular pulse in Figure 26 gives a peak Zeta of about 9.97. When 
+   moving the sampling point a single sample early or late, the eye closes noticeably faster than it 
+   does for the raised-cosine pulse with Beta equal to one shown in Figure 19, yet not nearly as 
+   abruptly as for the tighter roll-off cases in Figures 20 through 25. As a result, its timing 
+   sensitivity resides between those two extremes.
+}
+
+\textbf{4.0.6b -} 
+{
+   The peak Zeta of 9.97 for the unfiltered case is only a couple of percent higher than the 9.81 
+   recorded for Beta equal to one in Figure 19, so the two optimal values are practically the same. 
+   The key difference is not the height of the peak, but how rapidly Zeta drops when the timing 
+   slides away from it.
+}
+
+\textbf{4.0.7 -} 
+{
+   At the best sampling instant Zeta is about 10.30 for Beta equal to zero, 10.35 for Beta equal 
+   to one half, 9.81 for Beta equal to one, and 9.97 for the unfiltered rectangular pulse. Narrower 
+   roll-off factors concentrate more signal energy at the center of the symbol, giving a slightly 
+   larger eye opening, but they also tighten the transition slopes so any timing error hurts much 
+   more. A wider roll-off sacrifices a small amount of peak Zeta yet offers a more forgiving eye 
+   diagram.
+}
+
+% SECTION: Part 4 Figures
+\subsection{Figures}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{lab_ss/p4_3_threehist.png}
+    \caption{[4.0.3: Nth Sample 4 - Three Histograms]}
+    \label{fig:4.0.3threehist}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{lab_ss/p4_3_fourhist.png}
+    \caption{[4.0.3: Nth Sample 5 - Four Histograms]}
+    \label{fig:4.0.3fourhist}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{lab_ss/p4_4_rc.png}
+    \caption{[4.0.4: Eye Trace and Histogram at Optimal Time [Beta = 1 | Zeta = 9.80653]]}
+    \label{fig:4.0.4}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{lab_ss/p4_5_beta00_twohist.png}
+    \caption{[4.0.5: Two Histograms [Beta = 0 | Zeta = 10.301]]}
+    \label{fig:4.0.5}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{lab_ss/p4_5_beta00_threehist.png}
+    \caption{[4.0.5: Three Histograms [Beta = 0 | Zeta = 0.331194]]}
+    \label{fig:4.0.5}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{lab_ss/p4_5_beta00_fourhist.png}
+    \caption{[4.0.5: Four Histograms [Beta = 0 | Zeta = 2.12025]]}
+    \label{fig:4.0.5}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{lab_ss/p4_5_beta05_twohist.png}
+    \caption{[4.0.5: Two Histograms [Beta = 0.5 | Zeta = 10.345]]}
+    \label{fig:4.0.5}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{lab_ss/p4_5_beta05_threehist.png}
+    \caption{[4.0.5: Three Histograms [Beta = 0.5 | Zeta = 0.015093]]}
+    \label{fig:4.0.5}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{lab_ss/p4_5_beta05_fourhist.png}
+    \caption{[4.0.5: Four Histograms [Beta = 0.5 | Zeta = 1.17704]]}
+    \label{fig:4.0.5}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{lab_ss/p4_6.png}
+    \caption{[4.0.6: Transmit Filter None [Zeta = 9.96767]]}
+    \label{fig:4.0.6}
+\end{figure}
+
+% SECTION: Part 4.1
+\subsection{Interference and Low-Pass Filtering}
+\subsubsection{Narrative Questions}
+
+\hspace*{1.5em}\textbf{[4.1.1a]} 
+{
+   When the Butterworth cut-off sits at two-hundred percent of the symbol rate 
+   the eye remains wide and clean in both the raised-cosine capture (Figure 27) 
+   and the unfiltered capture (Figure 30). Dropping the cut-off to one-hundred 
+   percent trims high-frequency content so the openings shrink noticeably, as 
+   seen in Figures 28 and 31. A further drop to fifty percent removes much of 
+   the spectrum that separates adjacent symbols; inter-symbol interference 
+   smears the crossings and the eyes in Figures 29 and 32 are almost closed. 
+   The progressive closure happens because a tighter bandwidth stretches each 
+   symbol in time, making successive bits overlap and crowd the decision point.
+}
+
+\textbf{[4.1.1a.i]} 
+{
+   The low-pass filter makes the signal more vulnerable to inter-symbol interference 
+   than the raised-cosine pulse-shaping alone. The raised-cosine waveform is already 
+   designed to satisfy the Nyquist criterion, so even after the extra filtering 
+   its eye retains a clearer opening, whereas the unfiltered sequence loses 
+   definition much faster at the same cut-off settings.
+}
+\subsubsection{Figures}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{lab_ss/p41_rcTX_200percent.png}
+    \caption{[Cut-Off Frequency 200 Percent - Raised Cosine Filter]}
+    \label{fig:4.1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{lab_ss/p41_rcTX_100percent.png}
+    \caption{[Cut-Off Frequency 100 Percent - Raised Cosine Filter]}
+    \label{fig:4.1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{lab_ss/p41_rcTX_50percent.png}
+    \caption{[Cut-Off Frequency 50 Percent - Raised Cosine Filter]}
+    \label{fig:4.1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{lab_ss/p41_nofilterTX_200percent.png}
+    \caption{[Cut-Off Frequency 200 Percent - Un-Filtered]}
+    \label{fig:4.1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{lab_ss/p41_nofilterTX_100percent.png}
+    \caption{[Cut-Off Frequency 100 Percent - Un-Filtered]}
+    \label{fig:4.1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{lab_ss/p41_nofilterTX_50percent.png}
+    \caption{[Cut-Off Frequency 50 Percent - Un-Filtered]}
+    \label{fig:4.1}
+\end{figure}
 
 % Easter Egg
-%\newpage
-%\thispagestyle{empty}
-%\vspace*{\fill}
-%\begin{center}
-%    \includegraphics[width=0.4\textwidth]{EasterEgg2.png}\\[1em]
-%    \textbf{feelsgoodman}
-%\end{center}
-%\vspace*{\fill}
+\newpage
+\thispagestyle{empty}
+\vspace*{\fill}
+\begin{center}
+   \includegraphics[width=0.4\textwidth]{EasterEgg2.png}\\[1em]
+   \textbf{feelsgoodman}
+\end{center}
+\vspace*{\fill}
 
 \end{document}
